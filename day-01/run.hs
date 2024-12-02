@@ -1,4 +1,6 @@
 import Day1A (solve1A)
+import Day1B (solve1B)
+import Distribution.InstalledPackageInfo (InstalledPackageInfo (exposedModules))
 
 readLines :: String -> IO [String]
 readLines fileName = do
@@ -6,8 +8,11 @@ readLines fileName = do
   let allLines = lines content
   return allLines
 
-exampleSolution :: Integer
-exampleSolution = 11
+exampleSolutionA :: Integer
+exampleSolutionA = 11
+
+exampleSolutionB :: Int
+exampleSolutionB = 31
 
 solveFile :: (Ord a) => ([String] -> a) -> String -> IO a
 solveFile solver fileName = do
@@ -17,16 +22,18 @@ solveFile solver fileName = do
 
 main :: IO ()
 main = do
-  exampleComputed <- solve "example_input"
-  if exampleComputed == exampleSolution
-    then do
-      realSolution <- solve "real_input"
-      putStrLn $ "Real solution: " ++ show realSolution
-    else
-      putStrLn $
-        "Example test failed: expected "
-          ++ show exampleSolution
-          ++ ", but got "
-          ++ show exampleComputed
+  solvePart solve1A exampleSolutionA
+  solvePart solve1B exampleSolutionB
   where
-    solve = solveFile solve1A
+    solvePart solver example = do
+      exampleComputed <- solveFile solver "example_input"
+      if exampleComputed == example
+        then do
+          realSolution <- solveFile solver "real_input"
+          putStrLn $ "Real solution: " ++ show realSolution
+        else
+          putStrLn $
+            "Example test failed: expected "
+              ++ show example
+              ++ ", but got "
+              ++ show exampleComputed
