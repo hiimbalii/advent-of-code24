@@ -1,8 +1,6 @@
 module Day1A (solve1A) where
 
 import Data.List
-import Data.Set qualified as Set
-import GHC.Conc (par)
 import System.IO
 
 type Input = ([Integer], [Integer])
